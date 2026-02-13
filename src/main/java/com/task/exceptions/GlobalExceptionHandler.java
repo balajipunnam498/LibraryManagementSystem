@@ -12,4 +12,19 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> bookNotFound(BookNotFoundException bookNotFound){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(bookNotFound.getMessage());
 	}
+	
+	@ExceptionHandler(MemberNotFoundException.class)
+	public ResponseEntity<String> memberNotFound(MemberNotFoundException memberNotFound){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(memberNotFound.getMessage());
+	}
+	
+	@ExceptionHandler(MaxNumOfIssuedBooksExceed.class)
+	public ResponseEntity<String> maxNumberOfIssuedBookExceeded(MaxNumOfIssuedBooksExceed maxNumOfIssuedBooksExceed){
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(maxNumOfIssuedBooksExceed.getMessage());
+	} 
+	@ExceptionHandler(MinIssuedBooksExceed.class)
+	public ResponseEntity<String> minNumberOfIssuedBookExceeded(MinIssuedBooksExceed minIssuedBooksExceed){
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(minIssuedBooksExceed.getMessage());
+	} 
 }
+
