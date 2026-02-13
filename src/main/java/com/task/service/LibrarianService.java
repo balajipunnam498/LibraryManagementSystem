@@ -1,6 +1,6 @@
 package com.task.service;
 
-public class LibrarianService {
+public interface LibrarianService {
 
 }
 	
