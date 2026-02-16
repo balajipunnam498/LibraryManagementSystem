@@ -1,9 +1,14 @@
 package com.task.serviceimpl;
 
+<<<<<<< HEAD
+=======
+import java.util.Optional;
+>>>>>>> master
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.task.dao.BillRepo;
 import com.task.dao.MemberRepo;
 import com.task.exceptions.BillNotFoundException;
@@ -12,6 +17,12 @@ import com.task.exceptions.MaxNumOfIssuedBooksExceed;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.exceptions.MinIssuedBooksExceed;
 import com.task.model.Bill;
+=======
+import com.task.dao.MemberRepo;
+import com.task.exceptions.MaxNumOfIssuedBooksExceed;
+import com.task.exceptions.MemberNotFoundException;
+import com.task.exceptions.MinIssuedBooksExceed;
+>>>>>>> master
 import com.task.model.Member;
 import com.task.service.MemberService;
 
@@ -21,9 +32,12 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberRepo memberrepo;
 	
+<<<<<<< HEAD
 	@Autowired
 	private BillRepo billRepo;
 	
+=======
+>>>>>>> master
 	@Override
 	public Member retriveMember(long memberid) {
 		Member member = memberrepo.findById(memberid).orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:"+memberid));
@@ -50,6 +64,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberrepo.save(member); 
 	}
 
+<<<<<<< HEAD
 	@Override
 	public String payBill(double amount, long billId) {
 		Bill bill = billRepo.findById(billId).orElseThrow(() -> new BillNotFoundException("Bill Not Found With Id;"+billId));
@@ -61,4 +76,6 @@ public class MemberServiceImpl implements MemberService{
 		return "Bill Paid Succesfully Your change is "+remaingAmount+"rupees";
 	}
 
+=======
+>>>>>>> master
 }

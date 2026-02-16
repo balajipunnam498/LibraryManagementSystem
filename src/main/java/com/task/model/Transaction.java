@@ -48,7 +48,11 @@ public class Transaction {
 		this.bill = bill;
 	}
 
+<<<<<<< HEAD
  	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
+=======
+	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
+>>>>>>> master
 	private Bill bill;
 	
 }

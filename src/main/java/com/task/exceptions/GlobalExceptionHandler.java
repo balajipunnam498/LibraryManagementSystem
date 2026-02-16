@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(MaxNumOfIssuedBooksExceed.class)
 	public ResponseEntity<String> maxNumberOfIssuedBookExceeded(MaxNumOfIssuedBooksExceed maxNumOfIssuedBooksExceed){
+
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(maxNumOfIssuedBooksExceed.getMessage());
 	} 
 	@ExceptionHandler(MinIssuedBooksExceed.class)
@@ -34,5 +35,6 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String>inSufficientFundsException(InSufficientFundsException inSufficientFundsException){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(inSufficientFundsException.getMessage());
 	}
+
 }
 
