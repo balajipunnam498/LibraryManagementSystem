@@ -12,7 +12,6 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> bookNotFound(BookNotFoundException bookNotFound){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(bookNotFound.getMessage());
 	}
-<<<<<<< feature/member
 	
 	@ExceptionHandler(MemberNotFoundException.class)
 	public ResponseEntity<String> memberNotFound(MemberNotFoundException memberNotFound){
@@ -29,6 +28,3 @@ public class GlobalExceptionHandler {
 	} 
 }
 
-=======
-}
->>>>>>> master
