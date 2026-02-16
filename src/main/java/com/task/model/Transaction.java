@@ -48,7 +48,9 @@ public class Transaction {
 		this.bill = bill;
 	}
 
-	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
+
+ 	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
+
 	private Bill bill;
 	
 }
