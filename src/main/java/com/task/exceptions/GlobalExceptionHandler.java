@@ -40,6 +40,10 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String>transactionNotFoundException(TransactionNotFoundException transactionNotFoundException){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(transactionNotFoundException.getMessage());
 	}
-
-}
+	
+	@ExceptionHandler(BookAlreadyIssuedException.class)
+	public ResponseEntity<String>bookAlreadyIssuedException(BookAlreadyIssuedException bookAlreadyIssuedException){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bookAlreadyIssuedException.getMessage());
+	}
+}	
 

@@ -49,8 +49,16 @@ public class Transaction {
 	}
 
 
- 	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
+ 	public Transaction(LocalDate dateOfIssue, LocalDate dueDate, Member member, Book book) {
+		super();
+		this.dateOfIssue = dateOfIssue;
+		this.dueDate = dueDate;
+		this.member = member;
+		this.book = book;
+	}
 
+
+	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
 	private Bill bill;
 	
 }

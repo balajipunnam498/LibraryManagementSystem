@@ -3,6 +3,8 @@ package com.task.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,6 +49,7 @@ public class Book {
 	private LocalDate dateOfPurchase;
 	
 	@OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Transaction> transaction;
 
 	public Book(String authorName, String bookName, BookType type, double price, String rackNo, String status,
