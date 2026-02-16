@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import com.task.dao.BillRepo;
 import com.task.dao.BookRepo;
 import com.task.dao.MemberRepo;
+import com.task.dao.TransactionRepo;
+import com.task.exceptions.BillNotFoundException;
 import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MemberNotFoundException;
+import com.task.exceptions.TransactionNotFoundException;
 import com.task.model.Bill;
 import com.task.model.Book;
 import com.task.model.Member;
+import com.task.model.Transaction;
 import com.task.service.BillService;
 
 @Service
@@ -31,6 +35,9 @@ public class BillServiceImpl implements BillService{
 	
 	@Autowired
 	private MemberServiceImpl memberservice;
+	
+	@Autowired
+	private TransactionRepo transactionRepo;
 	
 	@Override
 	public Bill createBill(List<Long> listofBoooks, long memberid) {
@@ -50,6 +57,41 @@ public class BillServiceImpl implements BillService{
 		bill.setTransaction(null);
 		return billRepo.save(bill);
 	}
+
+	@Override
+	public Bill updateBill(long billId, Bill updatedBill) {
+
+	    Bill existingBill = billRepo.findById(billId)
+	            .orElseThrow(() ->
+	                    new BillNotFoundException("Bill Not Found With Id: " + billId));
+
+	    existingBill.setDateOfBill(updatedBill.getDateOfBill());
+	    existingBill.setAmount(updatedBill.getAmount());
+	    if ((updatedBill.getMember() != null &&
+	            updatedBill.getMember().getMemberId() != null)) {
+	        Long memberId = updatedBill.getMember().getMemberId();
+
+	        Member member = memberRepo.findById(memberId)
+	                .orElseThrow(() ->
+	                        new MemberNotFoundException("Member Not Found With Id: " + memberId));
+
+	        existingBill.setMember(member);
+	    }
+
+	    if (updatedBill.getTransaction() != null &&
+	            updatedBill.getTransaction().getTransactionId() != null) {
+	        Long transactionId = updatedBill.getTransaction().getTransactionId();
+
+	        Transaction transaction = transactionRepo.findById(transactionId)
+	                .orElseThrow(() ->
+	                        new TransactionNotFoundException("Transaction Not Found"));
+
+	        existingBill.setTransaction(transaction);
+	    }
+
+	    return billRepo.save(existingBill);
+	}
+
 
 	
 }

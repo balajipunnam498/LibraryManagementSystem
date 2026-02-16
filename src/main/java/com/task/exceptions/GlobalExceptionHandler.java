@@ -35,7 +35,11 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String>inSufficientFundsException(InSufficientFundsException inSufficientFundsException){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(inSufficientFundsException.getMessage());
 	}
+	
+	@ExceptionHandler(TransactionNotFoundException.class)
+	public ResponseEntity<String>transactionNotFoundException(TransactionNotFoundException transactionNotFoundException){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(transactionNotFoundException.getMessage());
+	}
 
 }
-
 

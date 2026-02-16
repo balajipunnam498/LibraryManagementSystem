@@ -27,7 +27,7 @@ public class Bill {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long billID;
+	private Long billID;
 	
 	private LocalDate dateOfBill;
 	

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +26,11 @@ public class BillController {
 	public ResponseEntity<Bill> createBill(@RequestBody List<Long> billId, @PathVariable long memberId){
 		Bill bill = billService.createBill(billId, memberId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(bill);
+	}
+	
+	@PutMapping("/updatebill/{billId}")
+	public ResponseEntity<Bill> updatebill(@PathVariable long billId, @RequestBody Bill bill){
+		Bill updateBill = billService.updateBill(billId, bill);
+		return ResponseEntity.status(HttpStatus.OK).body(updateBill);
 	}
 }
