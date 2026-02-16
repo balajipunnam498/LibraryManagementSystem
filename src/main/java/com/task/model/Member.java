@@ -47,6 +47,7 @@ public class Member {
 	private String phoneNumber;
 	
 	@OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Transaction> transactions;
 
 	@OneToMany(mappedBy ="member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
