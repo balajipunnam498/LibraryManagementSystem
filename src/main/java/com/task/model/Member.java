@@ -52,7 +52,6 @@ public class Member {
 
 	@OneToMany(mappedBy ="member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
-
 	private List<Bill> bills;
 	
 	  public void setDefaults() {

@@ -33,4 +33,6 @@ public class BillController {
 		Bill updateBill = billService.updateBill(billId, bill);
 		return ResponseEntity.status(HttpStatus.OK).body(updateBill);
 	}
+	
+
 }

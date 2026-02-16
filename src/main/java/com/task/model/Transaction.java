@@ -2,6 +2,8 @@ package com.task.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,15 +41,14 @@ public class Transaction {
 	@JoinColumn(name = "bookid")
 	private Book book;
 	
-	public Transaction(LocalDate dateOfIssue, LocalDate dueDate, Member member, Book book, Bill bill) {
-		super();
-		this.dateOfIssue = dateOfIssue;
-		this.dueDate = dueDate;
-		this.member = member;
-		this.book = book;
-		this.bill = bill;
-	}
-
+	  @ManyToOne(fetch = FetchType.LAZY)
+	  @JoinColumn(name = "billid")
+	  @JsonIgnore
+	  private Bill bill;
+	  
+	  private boolean returned;
+	  
+	  private LocalDate returnDate;
 
  	public Transaction(LocalDate dateOfIssue, LocalDate dueDate, Member member, Book book) {
 		super();
@@ -57,8 +58,19 @@ public class Transaction {
 		this.book = book;
 	}
 
+	public Transaction(LocalDate dateOfIssue, LocalDate dueDate, Member member, Book book, Bill bill, boolean returned,
+			LocalDate returnDate) {
+		super();
+		this.dateOfIssue = dateOfIssue;
+		this.dueDate = dueDate;
+		this.member = member;
+		this.book = book;
+		this.bill = bill;
+		this.returned = returned;
+		this.returnDate = returnDate;
+	}
 
-	@OneToOne(mappedBy = "transaction",cascade = CascadeType.ALL)
-	private Bill bill;
+
+
 	
 }

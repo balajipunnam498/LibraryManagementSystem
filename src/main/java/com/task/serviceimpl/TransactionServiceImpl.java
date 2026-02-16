@@ -15,7 +15,6 @@ import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MaxNumOfIssuedBooksExceed;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.exceptions.TransactionNotFoundException;
-import com.task.model.Bill;
 import com.task.model.Book;
 import com.task.model.Member;
 import com.task.model.Transaction;

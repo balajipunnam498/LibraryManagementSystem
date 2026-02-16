@@ -15,7 +15,10 @@ import com.task.model.Bill;
 import com.task.model.Member;
 import com.task.service.MemberService;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
