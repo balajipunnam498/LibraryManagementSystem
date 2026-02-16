@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,4 +38,11 @@ public class MemberController {
 		Member increaseBookIssued = memberServiceImpl.decreaseBookIssued(id, numOfBooks);
 		return ResponseEntity.status(HttpStatus.OK).body(increaseBookIssued);
 	}
+
+	@PostMapping("/paybill/{billId}")
+	public ResponseEntity<String> payBill(@RequestParam double amount,@PathVariable long billId){
+		String payBill = memberServiceImpl.payBill(amount, billId);
+		return ResponseEntity.status(HttpStatus.OK).body(payBill);
+	}
+
 }

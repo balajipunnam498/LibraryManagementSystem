@@ -3,10 +3,13 @@ package com.task.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -45,8 +48,10 @@ public class Member {
 	
 	@OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
 	private List<Transaction> transactions;
-	
-	@OneToMany(mappedBy ="member",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy ="member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonIgnore
+
 	private List<Bill> bills;
 	
 	  public void setDefaults() {
@@ -72,4 +77,5 @@ public class Member {
 		this.transactions = transactions;
 		this.bills = bills;
 	  }
+
 }
