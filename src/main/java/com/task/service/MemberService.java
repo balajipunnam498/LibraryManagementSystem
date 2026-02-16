@@ -12,9 +12,7 @@ public interface MemberService {
 	Member increaseBookIssued(long memberid,int noOfBooks);
 	
 	Member decreaseBookIssued(long memberid,int noOfBooks);
-<<<<<<< HEAD
-	
+
 	String payBill(double amount, long billId);
-=======
->>>>>>> master
+
 }
