@@ -18,7 +18,7 @@ public class Librarian {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long librarianId;
+	private Long librarianId;
 	
 	private String userName;
 	
