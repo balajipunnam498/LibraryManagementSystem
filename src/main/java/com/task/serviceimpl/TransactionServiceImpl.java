@@ -49,25 +49,37 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public Transaction createTransaction(long memberid, long bookid) {
-		Transaction transaction = new Transaction();
-		Member member = memberRepo.findById(memberid).orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:"+memberid));
-		Book book = bookRepo.findById(bookid).orElseThrow(()-> new BookNotFoundException("Book Not Found With Id:"+bookid));
-		
-		 if (book.getStatus().equals("Issued")) {
-		        throw new BookAlreadyIssuedException("Book is already issued");
-		    }
-		    if (member.getNoOfBooksIssued() >= member.getMaxBookLimit()) {
-		        throw new MaxNumOfIssuedBooksExceed("Member reached max book limit");
-		    }
-		transaction.setMember(member);
-		transaction.setBook(book);
-		transaction.setDateOfIssue(LocalDate.now());
-		transaction.setDueDate(transaction.getDateOfIssue().plusDays(10));
-		book.setStatus("Issued");
-		member.setNoOfBooksIssued(member.getNoOfBooksIssued()+1);
-		transactionRepo.save(transaction);
-		return transaction;
-		
+
+	    Member member = memberRepo.findById(memberid)
+	            .orElseThrow(() ->
+	                    new MemberNotFoundException("Member Not Found Of Id:" + memberid));
+
+	    Book book = bookRepo.findById(bookid)
+	            .orElseThrow(() ->
+	                    new BookNotFoundException("Book Not Found With Id:" + bookid));
+
+	    if ("Issued".equals(book.getStatus())) {
+	        throw new BookAlreadyIssuedException("Book is already issued");
+	    }
+
+	    if (member.getNoOfBooksIssued() >= member.getMaxBookLimit()) {
+	        throw new MaxNumOfIssuedBooksExceed("Member reached max book limit");
+	    }
+
+	    Transaction transaction = new Transaction();
+	    transaction.setMember(member);
+	    transaction.setBook(book);
+	    transaction.setDateOfIssue(LocalDate.now());
+	    transaction.setDueDate(LocalDate.now().plusDays(10));
+	    book.setStatus("Issued");
+	    member.setNoOfBooksIssued(member.getNoOfBooksIssued() + 1);
+	    
+	    bookRepo.save(book);
+	    memberRepo.save(member);
+	    transactionRepo.save(transaction);
+
+	    return transaction;
 	}
+
 
 }

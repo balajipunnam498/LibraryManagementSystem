@@ -41,19 +41,25 @@ public class BillServiceImpl implements BillService{
 	@Autowired
 	private MemberServiceImpl memberservice;
 	
-
+	@Autowired
+	private TransactionRepo transactionRepo;
 	
 	@Transactional
 	public Bill createBill(List<Long> bookIds, long memberId) {
 
 	    Member member = memberRepo.findById(memberId)
-	        .orElseThrow(() -> new MemberNotFoundException("Member not found"));
+	            .orElseThrow(() ->
+	                    new MemberNotFoundException("Member not found"));
 
 	    List<Book> books = bookrepo.findAllById(bookIds);
 
 	    double baseAmount = 0;
 	    List<Transaction> transactions = new ArrayList<>();
-
+	    Bill bill = new Bill();
+	    bill.setDateOfBill(LocalDate.now());
+	    bill.setMember(member);
+	    bill.setAmount(0);
+	    bill = billRepo.save(bill);
 	    for (Book book : books) {
 
 	        if ("Issued".equals(book.getStatus())) {
@@ -63,29 +69,27 @@ public class BillServiceImpl implements BillService{
 	        Transaction tx = new Transaction();
 	        tx.setMember(member);
 	        tx.setBook(book);
+	        tx.setBill(bill);
 	        tx.setDateOfIssue(LocalDate.now());
 	        tx.setDueDate(LocalDate.now().plusDays(10));
 
 	        baseAmount += book.getPrice();
+
 	        book.setStatus("Issued");
 
+	        transactionRepo.save(tx);
 	        transactions.add(tx);
 	    }
+
 	    memberservice.increaseBookIssued(memberId, books.size());
-	    Bill bill = new Bill();
-	    bill.setDateOfBill(LocalDate.now());
-	    bill.setMember(member);
 	    bill.setAmount(baseAmount);
-	    for (Transaction tx : transactions) {
-	        tx.setBill(bill);
-	    }
-
 	    bill.setTransactions(transactions);
-
 	    bookrepo.saveAll(books);
+	    billRepo.save(bill);
 
-	    return billRepo.save(bill);
+	    return bill;
 	}
+
 
 
 	@Override

@@ -99,23 +99,34 @@ public class LibrarianServiceImpl implements LibrarianService{
 
 	    Bill bill = transaction.getBill();
 	    if (bill == null) {
-	        throw new IllegalStateException("Transaction not linked to bill");
+	        throw new IllegalStateException("Bill not found for this transaction");
 	    }
+	    double fine = calculateFine(transaction.getDueDate());
 
-	    Book book = transaction.getBook();
-	    Member member = transaction.getMember();
-
-	    double fine = calculateFine(transaction.getDateOfIssue());
 	    transaction.setReturned(true);
 	    transaction.setReturnDate(LocalDate.now());
+
+	    Book book = transaction.getBook();
 	    book.setStatus("Available");
+
+	    Member member = transaction.getMember();
 	    memberService.decreaseBookIssued(member.getMemberId(), 1);
+
 	    bill.setAmount(bill.getAmount() + fine);
+
 	    bookRepo.save(book);
 	    transactionRepo.save(transaction);
 	    billRepo.save(bill);
 
 	    return bill;
+	}
+
+	@Override
+	public Member registerMember(Member member) {
+		member.setDefaults();
+		member.setNoOfBooksIssued(0);
+		return memberRepo.save(member);
+		
 	}
 
 
