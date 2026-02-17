@@ -5,11 +5,9 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.task.dao.BillRepo;
 import com.task.dao.BookRepo;
 import com.task.dao.MemberRepo;
 import com.task.dao.TransactionRepo;
-import com.task.exceptions.BillNotFoundException;
 import com.task.exceptions.BookAlreadyIssuedException;
 import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MaxNumOfIssuedBooksExceed;
