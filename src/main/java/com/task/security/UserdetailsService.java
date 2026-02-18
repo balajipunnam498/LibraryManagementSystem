@@ -22,12 +22,13 @@ public class UserdetailsService implements UserDetailsService {
 	
 	@Autowired
 	private LibrarianRepo librarianRepo;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Librarian userName = librarianRepo.findByUserName(username);
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		List<Authorities> authorities = userName.getAuthorities();
+
 		for(Authorities authority: authorities) {
 			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+authority.getAuthoritieType()));
 		}

@@ -22,7 +22,7 @@ public class AuthController {
 
 	@Autowired
 	private LibrarianRepo repo;
-	
+
 	@Autowired
 	private AuthenticationManager manager;
 	
@@ -31,7 +31,7 @@ public class AuthController {
 	
 	@Autowired
 	private com.task.security.JwtService jwtService;
-	
+
 	@PostMapping("/signup")
 	public Librarian signup(@RequestBody Librarian librarian) {
 		String password = librarian.getPassword();
@@ -39,6 +39,7 @@ public class AuthController {
 		Librarian save = repo.save(librarian);
 		return save;
 	}
+
 	
 	@GetMapping("/login")
 	public ResponseEntity<String> login(@RequestBody Librarian librarian) {
@@ -49,5 +50,6 @@ public class AuthController {
 		}
 		String token = jwtService.generateToken(librarian.getUserName());
 		return ResponseEntity.status(HttpStatus.OK).body(token);		
+
 	}
 }
