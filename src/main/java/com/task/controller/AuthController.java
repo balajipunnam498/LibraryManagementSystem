@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,16 +21,16 @@ public class AuthController {
 
 	@Autowired
 	private LibrarianRepo repo;
-	
+
 	@Autowired
 	private AuthenticationManager manager;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@Autowired
 	private com.task.security.JwtService jwtService;
-	
+
 	@PostMapping("/signup")
 	public Librarian signup(@RequestBody Librarian librarian) {
 		String password = librarian.getPassword();
@@ -39,15 +38,16 @@ public class AuthController {
 		Librarian save = repo.save(librarian);
 		return save;
 	}
-	
+
 	@GetMapping("/login")
 	public ResponseEntity<String> login(@RequestBody Librarian librarian) {
 		try {
-		manager.authenticate(new UsernamePasswordAuthenticationToken(librarian.getUserName(), librarian.getPassword()));
-		}catch(Exception e) {
-			return   ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
+			manager.authenticate(
+					new UsernamePasswordAuthenticationToken(librarian.getUserName(), librarian.getPassword()));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found");
 		}
 		String token = jwtService.generateToken(librarian.getUserName());
-		return ResponseEntity.status(HttpStatus.OK).body(token);		
+		return ResponseEntity.status(HttpStatus.OK).body(token);
 	}
 }

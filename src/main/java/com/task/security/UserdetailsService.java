@@ -19,22 +19,19 @@ import com.task.model.Librarian;
 @Service
 public class UserdetailsService implements UserDetailsService {
 
-	
 	@Autowired
 	private LibrarianRepo librarianRepo;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Librarian userName = librarianRepo.findByUserName(username);
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		List<Authorities> authorities = userName.getAuthorities();
-		for(Authorities authority: authorities) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+authority.getAuthoritieType()));
+		for (Authorities authority : authorities) {
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + authority.getAuthoritieType()));
 		}
-		UserDetails userDetails = User.builder().authorities(grantedAuthorities)
-						.username(userName.getUserName())
-						.password(userName.getPassword())
-						.build();
+		UserDetails userDetails = User.builder().authorities(grantedAuthorities).username(userName.getUserName())
+				.password(userName.getPassword()).build();
 		return userDetails;
 	}
 
