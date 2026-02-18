@@ -35,8 +35,8 @@ public class TransactionController {
 		return ResponseEntity.status(HttpStatus.OK).body(retriveTransaction);
 	}
 	
-	@PostMapping("/createtransaction")
-	public ResponseEntity<Transaction> createTransaction(@RequestParam long memberid, @RequestParam long bookid){
+	@PostMapping("/createtransaction/{memberid}/{bookid}")
+	public ResponseEntity<Transaction> createTransaction(@PathVariable long memberid, @PathVariable long bookid){
 		Transaction transaction = transactionServiceImpl.createTransaction(memberid, bookid);
 		return ResponseEntity.status(HttpStatus.OK).body(transaction);
 	}

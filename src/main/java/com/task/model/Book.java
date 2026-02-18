@@ -48,6 +48,7 @@ public class Book {
 	
 	private LocalDate dateOfPurchase;
 	
+	
 	@OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Transaction> transaction;

@@ -1,5 +1,7 @@
 package com.task.security;
 
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +21,8 @@ public class SecuirtyConfig {
 	private AuthFilter authfiler;
 	
 	@Bean
-	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http){
+	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) {
+
 		
 		HttpSecurity authorizeHttpRequests = http.csrf(csrf -> csrf.disable())
 			.cors(cors -> cors.disable())

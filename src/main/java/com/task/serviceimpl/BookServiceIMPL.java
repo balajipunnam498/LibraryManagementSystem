@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.task.dao.BookRepo;
 import com.task.exceptions.BookNotFoundException;
 import com.task.model.Book;
+import com.task.model.BookType;
 import com.task.service.BookService;
 
 import jakarta.transaction.Transactional;
@@ -35,11 +36,20 @@ public class BookServiceIMPL implements BookService {
 		
 	}
 
-
 	@Override
 	public List<Book> getAllBooks() {
 		return bookrepo.findAll();
 	}
+	
+	@Override
+    public Book findByName(String bookName) {
+        return bookrepo.findByBookName(bookName);
+    }
+
+    @Override
+    public List<Book> findByType(BookType type) {
+        return bookrepo.findByType(type);
+    }
 
 	
 }

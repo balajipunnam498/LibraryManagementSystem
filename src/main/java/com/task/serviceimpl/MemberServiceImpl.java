@@ -61,6 +61,8 @@ public class MemberServiceImpl implements MemberService{
 			throw new InSufficientFundsException("Insufficient Funds");
 		}
 		double remaingAmount=amount-bill.getAmount();
+		bill.setPaid(true);
+		billRepo.save(bill);
 		return "Bill Paid Succesfully Your change is "+remaingAmount+"rupees";
 	}
 

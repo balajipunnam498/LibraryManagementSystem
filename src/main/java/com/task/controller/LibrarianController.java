@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.task.dto.CreateBillRequest;
 import com.task.model.Bill;
 import com.task.model.Book;
 import com.task.model.Member;
@@ -42,8 +43,8 @@ public class LibrarianController {
 		return ResponseEntity.status(HttpStatus.OK).body(verifyMember);
 	}
 	
-	@PostMapping("/issuebook")
-	public ResponseEntity<Transaction> issueBook(@RequestParam long memberid, @RequestParam long bookid){
+	@PostMapping("/issuebook/{memberid}/{bookid}")
+	public ResponseEntity<Transaction> issueBook(@PathVariable long memberid, @PathVariable long bookid){
 		Transaction issueBook = librarianService.issueBook(memberid, bookid);
 		return ResponseEntity.status(HttpStatus.OK).body(issueBook);
 	}
@@ -55,14 +56,25 @@ public class LibrarianController {
 	}
 	
 	@PostMapping("/createbill/{id}")
-	public ResponseEntity<Bill> createBill(@RequestBody List<Long> bookids, @PathVariable long id){
-		Bill bill = librarianService.createBill(bookids, id);
-		return ResponseEntity.status(HttpStatus.OK).body(bill);
+	public ResponseEntity<Bill> createBill(
+	        @RequestBody CreateBillRequest request,@PathVariable long id) {
+
+	    Bill bill = librarianService.createBill(
+	            request.getBookIds(),id
+	    );
+
+	    return ResponseEntity.ok(bill);
 	}
 	
-	@DeleteMapping("/returnbook/{transid}")
+	@DeleteMapping("/returnbook/{id}")
 	public ResponseEntity<Bill> returnBook(@PathVariable long transid){
 		Bill returnBook = librarianService.returnBook(transid);
 		return ResponseEntity.status(HttpStatus.OK).body(returnBook);
+	}
+	
+	@PostMapping("/createMember")
+	public ResponseEntity<Member> createMember(@RequestBody Member member){
+		Member registerMember = librarianService.registerMember(member);
+		return ResponseEntity.status(HttpStatus.OK).body(registerMember);
 	}
 }

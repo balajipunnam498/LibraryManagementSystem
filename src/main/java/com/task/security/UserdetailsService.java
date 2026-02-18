@@ -1,4 +1,4 @@
-package com.task.security;
+ package com.task.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import com.task.model.Librarian;
 @Service
 public class UserdetailsService implements UserDetailsService {
 
+	
 	@Autowired
 	private LibrarianRepo librarianRepo;
 
@@ -27,11 +28,14 @@ public class UserdetailsService implements UserDetailsService {
 		Librarian userName = librarianRepo.findByUserName(username);
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		List<Authorities> authorities = userName.getAuthorities();
-		for (Authorities authority : authorities) {
-			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + authority.getAuthoritieType()));
+
+		for(Authorities authority: authorities) {
+			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_"+authority.getAuthoritieType()));
 		}
-		UserDetails userDetails = User.builder().authorities(grantedAuthorities).username(userName.getUserName())
-				.password(userName.getPassword()).build();
+		UserDetails userDetails = User.builder().authorities(grantedAuthorities)
+						.username(userName.getUserName())
+						.password(userName.getPassword())
+						.build();
 		return userDetails;
 	}
 

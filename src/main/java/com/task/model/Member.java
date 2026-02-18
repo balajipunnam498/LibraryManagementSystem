@@ -78,4 +78,12 @@ public class Member {
 		this.bills = bills;
 	  }
 
+	  public Member(Membertype memberType, String name, String address, String phoneNumber) {
+		super();
+		this.memberType = memberType;
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+	  }
+
 }
