@@ -22,5 +22,7 @@ public interface LibrarianService {
 	Bill createBill(List<Long> bookid,long memberid);
 	
 	Bill returnBook(long transactionId);
+	
+	Member registerMember(Member member);
 }
 	

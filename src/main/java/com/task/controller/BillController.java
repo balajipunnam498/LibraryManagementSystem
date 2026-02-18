@@ -28,9 +28,9 @@ public class BillController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(bill);
 	}
 	
-	@PutMapping("/updatebill/{billId}")
-	public ResponseEntity<Bill> updatebill(@PathVariable long billId, @RequestBody Bill bill){
-		Bill updateBill = billService.updateBill(billId, bill);
+	@PutMapping("/updatebill")
+	public ResponseEntity<Bill> updatebill(@RequestBody Bill bill){
+		Bill updateBill = billService.updateBill(bill.getBillID(), bill);
 		return ResponseEntity.status(HttpStatus.OK).body(updateBill);
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.task.model.Book;
+import com.task.model.BookType;
 
 @Service
 public interface BookService {
@@ -14,4 +15,8 @@ public interface BookService {
 	Book updateBookStatus(long id,String status);
 	
 	List<Book> getAllBooks();
+	
+	Book findByName(String bookName);
+
+    List<Book> findByType(BookType type);
 }

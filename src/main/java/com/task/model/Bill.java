@@ -40,8 +40,9 @@ public class Bill {
 	
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
-
-
+    
+    private boolean isPaid;
+    
 	public Bill(LocalDate dateOfBill, double amount, Member member, List<Transaction> transaction) {
 		super();
 		this.dateOfBill = dateOfBill;
