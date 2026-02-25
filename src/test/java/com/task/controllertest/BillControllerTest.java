@@ -20,7 +20,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,7 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.task.controller.BillController;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.model.Bill;
-import com.task.security.JwtService;
 import com.task.security.UserdetailsService;
 import com.task.serviceimpl.BillServiceImpl;
 
@@ -40,8 +38,6 @@ public class BillControllerTest {
 	@MockitoBean
 	private BillServiceImpl billService;
 
-	@MockitoBean
-	private JwtService jwtService;
 
 	@MockitoBean
 	private UserdetailsService userDetailService;

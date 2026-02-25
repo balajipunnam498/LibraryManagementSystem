@@ -33,7 +33,6 @@ import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.model.Book;
 import com.task.model.BookType;
-import com.task.security.JwtService;
 import com.task.security.UserdetailsService;
 import com.task.serviceimpl.BookServiceIMPL;
 
@@ -50,8 +49,6 @@ public class BookControllersTest {
 
 	private Book testBook;
 
-	@MockitoBean
-	private JwtService jwtService;
 
 	@MockitoBean
 	private LibrarianRepo librarian;
