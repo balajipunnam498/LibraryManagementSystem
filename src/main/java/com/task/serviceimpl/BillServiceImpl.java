@@ -3,7 +3,6 @@ package com.task.serviceimpl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,7 @@ import com.task.dao.MemberRepo;
 import com.task.dao.TransactionRepo;
 import com.task.exceptions.BillNotFoundException;
 import com.task.exceptions.BookAlreadyIssuedException;
-import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MemberNotFoundException;
-import com.task.exceptions.TransactionNotFoundException;
 import com.task.model.Bill;
 import com.task.model.Book;
 import com.task.model.Member;
