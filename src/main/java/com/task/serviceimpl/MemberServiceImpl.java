@@ -1,6 +1,5 @@
 package com.task.serviceimpl;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepo memberrepo;
@@ -29,41 +28,45 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public Member retriveMember(long memberid) {
-		Member member = memberrepo.findById(memberid).orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:"+memberid));
+		Member member = memberrepo.findById(memberid)
+				.orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:" + memberid));
 		return member;
 	}
 
 	@Override
 	public Member increaseBookIssued(long memberid, int noOfBooks) {
-		Member member = memberrepo.findById(memberid).orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:"+memberid));
-		if(member.getNoOfBooksIssued()+noOfBooks>member.getMaxBookLimit()) {
+		Member member = memberrepo.findById(memberid)
+				.orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:" + memberid));
+		if (member.getNoOfBooksIssued() + noOfBooks > member.getMaxBookLimit()) {
 			throw new MaxNumOfIssuedBooksExceed("Limit Excceded");
 		}
-		member.setNoOfBooksIssued(member.getNoOfBooksIssued()+noOfBooks);
-		return memberrepo.save(member); 
+		member.setNoOfBooksIssued(member.getNoOfBooksIssued() + noOfBooks);
+		return memberrepo.save(member);
 	}
 
 	@Override
 	public Member decreaseBookIssued(long memberid, int noOfBooks) {
-		Member member = memberrepo.findById(memberid).orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:"+memberid));
-		if(member.getNoOfBooksIssued()-noOfBooks<0) {
+		Member member = memberrepo.findById(memberid)
+				.orElseThrow(() -> new MemberNotFoundException("Member Not Found Of Id:" + memberid));
+		if (member.getNoOfBooksIssued() - noOfBooks < 0) {
 			throw new MinIssuedBooksExceed("Cannot Be Zero");
 		}
-		member.setNoOfBooksIssued(member.getNoOfBooksIssued()-noOfBooks);
-		return memberrepo.save(member); 
+		member.setNoOfBooksIssued(member.getNoOfBooksIssued() - noOfBooks);
+		return memberrepo.save(member);
 	}
 
 	@Override
 	public String payBill(double amount, long billId) {
-		Bill bill = billRepo.findById(billId).orElseThrow(() -> new BillNotFoundException("Bill Not Found With Id;"+billId));
-		
-		if(amount<bill.getAmount()) {
+		Bill bill = billRepo.findById(billId)
+				.orElseThrow(() -> new BillNotFoundException("Bill Not Found With Id;" + billId));
+
+		if (amount < bill.getAmount()) {
 			throw new InSufficientFundsException("Insufficient Funds");
 		}
-		double remaingAmount=amount-bill.getAmount();
+		double remaingAmount = amount - bill.getAmount();
 		bill.setPaid(true);
 		billRepo.save(bill);
-		return "Bill Paid Succesfully Your change is "+remaingAmount+"rupees";
+		return "Bill Paid Succesfully Your change is " + remaingAmount + "rupees";
 	}
 
 }

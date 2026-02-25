@@ -9,7 +9,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,36 +19,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="Books")
+@Table(name = "Books")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long bookID;
-	
+
 	private String authorName;
-	
+
 	private String bookName;
-	
+
 	@Enumerated(EnumType.STRING)
 	private BookType type;
-	
+
 	private double price;
-	
+
 	private String rackNo;
-	
+
 	private String status;
-	
+
 	private String edition;
-	
+
 	private LocalDate dateOfPurchase;
-	
-	
-	@OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Transaction> transaction;
 
@@ -65,8 +62,5 @@ public class Book {
 		this.edition = edition;
 		this.dateOfPurchase = dateOfPurchase;
 	}
-	
-	
-	
-	
+
 }

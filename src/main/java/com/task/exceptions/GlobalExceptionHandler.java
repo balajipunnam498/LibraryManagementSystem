@@ -21,11 +21,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MaxNumOfIssuedBooksExceed.class)
 	public ResponseEntity<String> maxNumberOfIssuedBookExceeded(MaxNumOfIssuedBooksExceed maxNumOfIssuedBooksExceed){
 
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(maxNumOfIssuedBooksExceed.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(maxNumOfIssuedBooksExceed.getMessage());
 	} 
 	@ExceptionHandler(MinIssuedBooksExceed.class)
 	public ResponseEntity<String> minNumberOfIssuedBookExceeded(MinIssuedBooksExceed minIssuedBooksExceed){
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(minIssuedBooksExceed.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(minIssuedBooksExceed.getMessage());
 	} 
 	@ExceptionHandler(BillNotFoundException.class)
 	public ResponseEntity<String>billNotFound(BillNotFoundException billNotFoundException){
@@ -33,17 +33,17 @@ public class GlobalExceptionHandler {
 	}
 	@ExceptionHandler(InSufficientFundsException.class)
 	public ResponseEntity<String>inSufficientFundsException(InSufficientFundsException inSufficientFundsException){
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(inSufficientFundsException.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(inSufficientFundsException.getMessage());
 	}
 	
 	@ExceptionHandler(TransactionNotFoundException.class)
 	public ResponseEntity<String>transactionNotFoundException(TransactionNotFoundException transactionNotFoundException){
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(transactionNotFoundException.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(transactionNotFoundException.getMessage());
 	}
 	
 	@ExceptionHandler(BookAlreadyIssuedException.class)
 	public ResponseEntity<String>bookAlreadyIssuedException(BookAlreadyIssuedException bookAlreadyIssuedException){
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bookAlreadyIssuedException.getMessage());
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(bookAlreadyIssuedException.getMessage());
 	}
 }	
 
