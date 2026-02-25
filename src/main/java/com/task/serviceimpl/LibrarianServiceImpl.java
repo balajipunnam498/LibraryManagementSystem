@@ -21,37 +21,36 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class LibrarianServiceImpl implements LibrarianService{
+public class LibrarianServiceImpl implements LibrarianService {
 
 	@Autowired
 	private BookServiceIMPL bookService;
-	
+
 	@Autowired
 	private MemberServiceImpl memberService;
-	
+
 	@Autowired
 	private TransactionServiceImpl transactionService;
-	
+
 	@Autowired
 	private BillServiceImpl billservice;
-	
+
 	@Autowired
 	private BookRepo bookRepo;
-	
+
 	@Autowired
 	private BillRepo billRepo;
-	
+
 	@Autowired
 	private MemberRepo memberRepo;
-	
+
 	@Autowired
 	private TransactionRepo transactionRepo;
-	
-	
+
 	@Override
 	public Book searchBook(long bookid) {
 		return bookService.displayBookDetails(bookid);
-		
+
 	}
 
 	@Override
@@ -62,24 +61,24 @@ public class LibrarianServiceImpl implements LibrarianService{
 	@Override
 	public Transaction issueBook(long memberid, long bookid) {
 		return transactionService.createTransaction(memberid, bookid);
-	
+
 	}
 
 	@Override
 	public double calculateFine(LocalDate issuedDate) {
-	    LocalDate now = LocalDate.now();
+		LocalDate now = LocalDate.now();
 
-	    int allowedDays = 10;
-	    double finePerDay = 2.0;
+		int allowedDays = 10;
+		double finePerDay = 2.0;
 
-	    LocalDate dueDate = issuedDate.plusDays(allowedDays);
+		LocalDate dueDate = issuedDate.plusDays(allowedDays);
 
-	    if (now.isAfter(dueDate)) {
-	        long overdueDays = ChronoUnit.DAYS.between(dueDate, now);
-	        return overdueDays * finePerDay;
-	    }
+		if (now.isAfter(dueDate)) {
+			long overdueDays = ChronoUnit.DAYS.between(dueDate, now);
+			return overdueDays * finePerDay;
+		}
 
-	    return 0;
+		return 0;
 	}
 
 	@Override
@@ -87,38 +86,38 @@ public class LibrarianServiceImpl implements LibrarianService{
 		Bill bill = billservice.createBill(bookid, memberid);
 		return bill;
 	}
-	
+
 	@Override
 	public Bill returnBook(long transactionId) {
 
-	    Transaction transaction = transactionService.retriveTransaction(transactionId);
+		Transaction transaction = transactionService.retriveTransaction(transactionId);
 
-	    if (transaction.isReturned()) {
-	        throw new IllegalStateException("Book already returned");
-	    }
+		if (transaction.isReturned()) {
+			throw new IllegalStateException("Book already returned");
+		}
 
-	    Bill bill = transaction.getBill();
-	    if (bill == null) {
-	        throw new IllegalStateException("Bill not found for this transaction");
-	    }
-	    double fine = calculateFine(transaction.getDueDate());
+		Bill bill = transaction.getBill();
+		if (bill == null) {
+			throw new IllegalStateException("Bill not found for this transaction");
+		}
+		double fine = calculateFine(transaction.getDueDate());
 
-	    transaction.setReturned(true);
-	    transaction.setReturnDate(LocalDate.now());
+		transaction.setReturned(true);
+		transaction.setReturnDate(LocalDate.now());
 
-	    Book book = transaction.getBook();
-	    book.setStatus("Available");
+		Book book = transaction.getBook();
+		book.setStatus("Available");
 
-	    Member member = transaction.getMember();
-	    memberService.decreaseBookIssued(member.getMemberId(), 1);
+		Member member = transaction.getMember();
+		memberService.decreaseBookIssued(member.getMemberId(), 1);
 
-	    bill.setAmount(bill.getAmount() + fine);
+		bill.setAmount(bill.getAmount() + fine);
 
-	    bookRepo.save(book);
-	    transactionRepo.save(transaction);
-	    billRepo.save(bill);
+		bookRepo.save(book);
+		transactionRepo.save(transaction);
+		billRepo.save(bill);
 
-	    return bill;
+		return bill;
 	}
 
 	@Override
@@ -126,10 +125,7 @@ public class LibrarianServiceImpl implements LibrarianService{
 		member.setDefaults();
 		member.setNoOfBooksIssued(0);
 		return memberRepo.save(member);
-		
+
 	}
 
-
-
-	
 }

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBillRequest {
-    private List<Long> bookIds;
+	private List<Long> bookIds;
 }

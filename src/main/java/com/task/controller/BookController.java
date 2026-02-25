@@ -24,35 +24,35 @@ public class BookController {
 
 	@Autowired
 	private BookServiceIMPL bookservice;
-	
+
 	@GetMapping("/findbookbyid/{bookid}")
-	public ResponseEntity<Book> detailsOfBookById(@PathVariable long bookid){
+	public ResponseEntity<Book> detailsOfBookById(@PathVariable long bookid) {
 		Book book = bookservice.displayBookDetails(bookid);
 		return ResponseEntity.status(HttpStatus.OK).body(book);
 	}
-	
+
 	@PutMapping("/updatebookstatusbyid")
-	public ResponseEntity<Book> updateBookStatus(@RequestBody Book bookDetails){
+	public ResponseEntity<Book> updateBookStatus(@RequestBody Book bookDetails) {
 		Book book = bookservice.updateBookStatus(bookDetails.getBookID(), bookDetails.getStatus());
 		return ResponseEntity.status(HttpStatus.OK).body(book);
 	}
-	
+
 	@GetMapping("/getallbooks")
-	public ResponseEntity<List<Book>> findAllbooks(){
+	public ResponseEntity<List<Book>> findAllbooks() {
 		List<Book> allBooks = bookservice.getAllBooks();
 		return ResponseEntity.status(HttpStatus.OK).body(allBooks);
 	}
-	
+
 	@PostMapping("/searchbyname")
 	public ResponseEntity<Book> findByName(@RequestParam String bookname) {
-	     Book list = bookservice.findByName(bookname);
-	     return ResponseEntity.status(HttpStatus.OK).body(list);
+		Book list = bookservice.findByName(bookname);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 	@PostMapping("/searchbytype")
-	public ResponseEntity<List<Book>>  findByType( @RequestParam BookType book) {
-	    List<Book> list = bookservice.findByType(book);
-	    return ResponseEntity.status(HttpStatus.OK).body(list);
+	public ResponseEntity<List<Book>> findByType(@RequestParam BookType book) {
+		List<Book> list = bookservice.findByType(book);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 }

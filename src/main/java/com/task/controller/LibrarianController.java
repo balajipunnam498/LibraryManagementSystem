@@ -1,8 +1,6 @@
 package com.task.controller;
 
-
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,51 +27,48 @@ public class LibrarianController {
 
 	@Autowired
 	private LibrarianServiceImpl librarianService;
-	
+
 	@GetMapping("/searchbook/{bookid}")
 	public ResponseEntity<Book> searchBook(@PathVariable long bookid) {
 		Book searchBook = librarianService.searchBook(bookid);
 		return ResponseEntity.status(HttpStatus.OK).body(searchBook);
-		
+
 	}
-	
+
 	@GetMapping("/verifymember/{memberid}")
-	public ResponseEntity<Member> verifyMember(@PathVariable long memberid){
+	public ResponseEntity<Member> verifyMember(@PathVariable long memberid) {
 		Member verifyMember = librarianService.verifyMember(memberid);
 		return ResponseEntity.status(HttpStatus.OK).body(verifyMember);
 	}
-	
+
 	@PostMapping("/issuebook/{memberid}/{bookid}")
-	public ResponseEntity<Transaction> issueBook(@PathVariable long memberid, @PathVariable long bookid){
+	public ResponseEntity<Transaction> issueBook(@PathVariable long memberid, @PathVariable long bookid) {
 		Transaction issueBook = librarianService.issueBook(memberid, bookid);
 		return ResponseEntity.status(HttpStatus.OK).body(issueBook);
 	}
-	
+
 	@GetMapping("/calculatefine")
-	public ResponseEntity<Double> calculateFine(@RequestParam LocalDate date){
+	public ResponseEntity<Double> calculateFine(@RequestParam LocalDate date) {
 		double fine = librarianService.calculateFine(date);
 		return ResponseEntity.status(HttpStatus.OK).body(fine);
 	}
-	
+
 	@PostMapping("/createbill/{id}")
-	public ResponseEntity<Bill> createBill(
-	        @RequestBody CreateBillRequest request,@PathVariable long id) {
+	public ResponseEntity<Bill> createBill(@RequestBody CreateBillRequest request, @PathVariable long id) {
 
-	    Bill bill = librarianService.createBill(
-	            request.getBookIds(),id
-	    );
+		Bill bill = librarianService.createBill(request.getBookIds(), id);
 
-	    return ResponseEntity.ok(bill);
+		return ResponseEntity.ok(bill);
 	}
-	
-	@DeleteMapping("/returnbook/{id}")
-	public ResponseEntity<Bill> returnBook(@PathVariable long transid){
+
+	@DeleteMapping("/returnbook/{transid}")
+	public ResponseEntity<Bill> returnBook(@PathVariable long transid) {
 		Bill returnBook = librarianService.returnBook(transid);
 		return ResponseEntity.status(HttpStatus.OK).body(returnBook);
 	}
-	
+
 	@PostMapping("/createMember")
-	public ResponseEntity<Member> createMember(@RequestBody Member member){
+	public ResponseEntity<Member> createMember(@RequestBody Member member) {
 		Member registerMember = librarianService.registerMember(member);
 		return ResponseEntity.status(HttpStatus.OK).body(registerMember);
 	}

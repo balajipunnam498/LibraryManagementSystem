@@ -19,37 +19,34 @@ public class BookServiceIMPL implements BookService {
 
 	@Autowired
 	private BookRepo bookrepo;
-	
-	
+
 	@Override
 	public Book displayBookDetails(long id) {
-		Book book = bookrepo.findById(id).orElseThrow(()-> new BookNotFoundException("Book Not Found With Id:"+id));
+		Book book = bookrepo.findById(id).orElseThrow(() -> new BookNotFoundException("Book Not Found With Id:" + id));
 		return book;
 	}
 
-
 	@Override
-	public Book updateBookStatus(long id,String status) {
-		Book book = bookrepo.findById(id).orElseThrow(()-> new BookNotFoundException("Book Not Found With Id:"+id));
+	public Book updateBookStatus(long id, String status) {
+		Book book = bookrepo.findById(id).orElseThrow(() -> new BookNotFoundException("Book Not Found With Id:" + id));
 		book.setStatus(status);
 		return bookrepo.save(book);
-		
+
 	}
 
 	@Override
 	public List<Book> getAllBooks() {
 		return bookrepo.findAll();
 	}
-	
+
 	@Override
-    public Book findByName(String bookName) {
-        return bookrepo.findByBookName(bookName);
-    }
+	public Book findByName(String bookName) {
+		return bookrepo.findByBookName(bookName);
+	}
 
-    @Override
-    public List<Book> findByType(BookType type) {
-        return bookrepo.findByType(type);
-    }
+	@Override
+	public List<Book> findByType(BookType type) {
+		return bookrepo.findByType(type);
+	}
 
-	
 }

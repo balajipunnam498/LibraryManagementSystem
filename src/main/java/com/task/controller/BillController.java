@@ -21,18 +21,17 @@ public class BillController {
 
 	@Autowired
 	private BillServiceImpl billService;
-	
+
 	@PostMapping("/createBill/{memberId}")
-	public ResponseEntity<Bill> createBill(@RequestBody List<Long> billId, @PathVariable long memberId){
+	public ResponseEntity<Bill> createBill(@RequestBody List<Long> billId, @PathVariable long memberId) {
 		Bill bill = billService.createBill(billId, memberId);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(bill);
 	}
-	
+
 	@PutMapping("/updatebill")
-	public ResponseEntity<Bill> updatebill(@RequestBody Bill bill){
+	public ResponseEntity<Bill> updatebill(@RequestBody Bill bill) {
 		Bill updateBill = billService.updateBill(bill.getBillID(), bill);
 		return ResponseEntity.status(HttpStatus.OK).body(updateBill);
 	}
-	
 
 }
