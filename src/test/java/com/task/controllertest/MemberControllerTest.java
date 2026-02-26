@@ -27,7 +27,6 @@ import com.task.controller.MemberController;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.model.Bill;
 import com.task.model.Member;
-import com.task.security.UserdetailsService;
 import com.task.serviceimpl.MemberServiceImpl;
 
 import tools.jackson.databind.ObjectMapper;
@@ -38,8 +37,6 @@ public class MemberControllerTest {
 	@MockitoBean
 	private MemberServiceImpl memberServiceImpl;
 
-	@MockitoBean
-	private UserdetailsService userDetailService;
 
 	@Autowired
 	private MockMvc mockMvc;

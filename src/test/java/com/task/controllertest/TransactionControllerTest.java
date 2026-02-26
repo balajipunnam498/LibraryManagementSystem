@@ -29,7 +29,6 @@ import com.task.exceptions.MaxNumOfIssuedBooksExceed;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.exceptions.TransactionNotFoundException;
 import com.task.model.Transaction;
-import com.task.security.UserdetailsService;
 import com.task.serviceimpl.TransactionServiceImpl;
 
 @WebMvcTest(TransactionController.class)
@@ -38,8 +37,6 @@ public class TransactionControllerTest {
 	@MockitoBean
 	private TransactionServiceImpl transactionServiceImpl;
 
-	@MockitoBean
-	private UserdetailsService userDetailService;
 
 	@Autowired
 	private MockMvc mockMvc;

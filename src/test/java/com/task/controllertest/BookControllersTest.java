@@ -33,7 +33,6 @@ import com.task.exceptions.BookNotFoundException;
 import com.task.exceptions.MemberNotFoundException;
 import com.task.model.Book;
 import com.task.model.BookType;
-import com.task.security.UserdetailsService;
 import com.task.serviceimpl.BookServiceIMPL;
 
 import tools.jackson.databind.ObjectMapper;
@@ -53,8 +52,6 @@ public class BookControllersTest {
 	@MockitoBean
 	private LibrarianRepo librarian;
 
-	@MockitoBean
-	private UserdetailsService userDetailService;
 
 	@Autowired
 	private ObjectMapper objectMapper;
