@@ -38,8 +38,6 @@ import com.task.model.Book;
 import com.task.model.BookType;
 import com.task.model.Member;
 import com.task.model.Transaction;
-import com.task.security.JwtService;
-import com.task.security.UserdetailsService;
 import com.task.serviceimpl.LibrarianServiceImpl;
 
 import tools.jackson.databind.ObjectMapper;
@@ -50,11 +48,7 @@ public class LibrarianControllerTest {
 	@MockitoBean
 	private LibrarianServiceImpl librarianService;
 
-	@MockitoBean
-	private JwtService jwtService;
 
-	@MockitoBean
-	private UserdetailsService userDetailService;
 
 	@Autowired
 	private MockMvc mockMvc;
